@@ -1,0 +1,69 @@
+InputPanel {
+  layout: horizontal;
+  margin: 1;
+  height: 4;
+  min-width: 5;
+  dock: bottom;
+}
+
+InfoPanel {
+  height: 100%;
+  width: 100%;
+}
+
+ChatPanel {
+  layout: vertical;
+  height: 100%;
+  width: 100%;
+  margin: 1;
+}
+
+ChatMessage {
+  width: 80%;
+  background: blue 10%;
+  padding: 1;
+  margin: 1;
+}
+
+ChatMessage .is-user {
+  background: green 10%;
+}
+
+.message-sender {
+  max-height: 5;
+  max-width: 10;
+  padding: 1;
+  border: solid white;
+}
+
+.message-text {
+  padding: 1;
+  border: solid white;
+}
+
+.info-button {
+  width: 100%;
+}
+
+.avatar {
+  width: 100%;
+  max-height: 8;
+}
+
+#info {
+  height: 100%;
+  width: 30;
+}
+
+#chat {
+  height: 100%;
+  width: 80%;
+}
+
+#send {
+  dock: right;
+}
+
+#user-avatar {
+  dock: bottom;
+}
