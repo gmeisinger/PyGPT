@@ -1,5 +1,5 @@
 InputPanel {
-  layout: horizontal;
+  width: 70%;
   margin: 1;
   height: 4;
   min-width: 5;
@@ -12,7 +12,6 @@ InfoPanel {
 }
 
 ChatPanel {
-  layout: vertical;
   height: 100%;
   width: 100%;
   margin: 1;
@@ -20,13 +19,8 @@ ChatPanel {
 
 ChatMessage {
   width: 80%;
-  background: blue 10%;
   padding: 1;
   margin: 1;
-}
-
-ChatMessage .is-user {
-  background: green 10%;
 }
 
 .message-sender {
@@ -57,13 +51,18 @@ ChatMessage .is-user {
 
 #chat {
   height: 100%;
-  width: 80%;
+  max-width: 80%;
 }
 
 #send {
-  dock: right;
+  max-width: 8;
+}
+
+#ai-avatar {
+  color: cyan;
 }
 
 #user-avatar {
+  color: green;
   dock: bottom;
 }
