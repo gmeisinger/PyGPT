@@ -112,21 +112,26 @@ class ChatMessage(Static):
 
     sender = "USER"
     text = "CONTENT"
+    is_code = False
 
-    def __init__(self, sender: str, text: str) -> None:
+    def __init__(self, sender: str, text: str, is_code: bool = False) -> None:
         self.sender = sender
         self.text = text
+        self.is_code = is_code
         super().__init__()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         pyperclip.copy(self.text)
 
     def compose(self) -> ComposeResult:
-        if self.sender != None:
-            yield Static(f"{self.sender}: {self.text}")
+        full_string = f"{self.sender}: {self.text}"
+        if self.sender == None:
+            full_string = f"{self.text}"
+        if self.is_code:
+            yield Markdown(full_string)
             yield CopyButton()
         else:
-            yield Static(f"{self.text}")
+            yield Static(full_string)
             yield CopyButton()
 
 
@@ -190,7 +195,7 @@ class ChatPanel(Static):
         blocks = self.extract_blocks(text)
         for i in range(len(blocks)):
             if blocks[i].startswith("```"):
-                message = Markdown(blocks[i])
+                message = ChatMessage(None, blocks[i], is_code=True)
             else:
                 if i == 0:
                     message = ChatMessage(sender, blocks[i])
