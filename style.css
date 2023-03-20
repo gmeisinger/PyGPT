@@ -23,6 +23,11 @@ ChatMessage {
   margin: 1;
 }
 
+CopyButton {
+  max-width: 6;
+  dock: right;
+}
+
 .message-sender {
   max-height: 5;
   max-width: 10;
@@ -46,7 +51,7 @@ ChatMessage {
 
 #info {
   height: 100%;
-  width: 30;
+  width: 28;
 }
 
 #chat {

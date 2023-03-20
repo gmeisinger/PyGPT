@@ -1,6 +1,7 @@
 import os
 import re
 import openai
+import pyperclip
 from dotenv import load_dotenv
 from textual.app import App, ComposeResult
 from textual.containers import Container, Horizontal, Vertical
@@ -98,11 +99,14 @@ class util:
     reverse = "\u001b[7m"
 
 
+class CopyButton(Button):
+    """A button that copies text to the clipboard."""
+
+    def __init__(self):
+        super().__init__("Copy")
+
+
 # TUI classes
-class Avatar(Static):
-    """A widget to display ascii-art."""
-
-
 class ChatMessage(Static):
     """A widget to display a chat message."""
 
@@ -114,11 +118,16 @@ class ChatMessage(Static):
         self.text = text
         super().__init__()
 
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        pyperclip.copy(self.text)
+
     def compose(self) -> ComposeResult:
         if self.sender != None:
             yield Static(f"{self.sender}: {self.text}")
+            yield CopyButton()
         else:
             yield Static(f"{self.text}")
+            yield CopyButton()
 
 
 class InputPanel(Static):
@@ -194,7 +203,7 @@ class ChatPanel(Static):
         msg.input.value = ""
         if message.lower().strip(" .!\n") in ["exit", "quit"]:
             # I think I might need to close a socket here?
-            exit()
+            app.exit()
         elif message.lower().strip(" .!\n") in ["reset", "clear", "start over"]:
             self.conversation_history = [
                 {"role": "system", "content": INITIAL_PROMPT}]
@@ -260,6 +269,9 @@ class ChatGPT(App):
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
         self.dark = not self.dark
+
+
+app: ChatGPT = None
 
 
 def run():
