@@ -25,6 +25,7 @@ ChatMessage {
 
 CopyButton {
   max-width: 6;
+  margin: 1;
   dock: right;
 }
 
